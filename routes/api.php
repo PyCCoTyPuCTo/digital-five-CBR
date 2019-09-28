@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,19 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('/registrate', 'ApiAuthController@registrate');
+
+Route::post('/login', 'ApiAuthController@login');
+
+Route::post('/logout', 'ApiAuthController@logout');
+
+Route::post('/CheckAuth', 'ApiAuthController@isAuth');
+
+Route::group(['middleware' => 'apiAuth'], function () {
+
+    Route::get('/checkAuth', function (Request $request) {
+        return response()->json(['id' => $request->user->id]);
+    });
+
+
 });

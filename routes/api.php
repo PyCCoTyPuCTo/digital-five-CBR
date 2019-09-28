@@ -24,6 +24,32 @@ Route::post('/CheckAuth', 'ApiAuthController@isAuth');
 
 Route::group(['middleware' => 'apiAuth'], function () {
 
+
+    Route::group(['prefix' => 'closed_question/{id}'], function () {
+
+        Route::post('/set_answer', 'ClosedQuestionsController@setAnswer');
+        Route::get('/', 'ClosedQuestionsController@getQuestion');
+
+    });
+
+    Route::group(['prefix' => 'user_statistics'], function () {
+
+        Route::get('/get_basic_user_data', 'Statistics@GetBasicUserData');
+
+        Route::get('/count_closed_votes', 'Statistics@CountClosedVotes');
+    });
+
+    Route::group(['prefix' => 'votes'], function () {
+
+        Route::get('/votes', 'VoteController@index');
+        Route::get('/vote/{id}', 'VoteController@show');
+        Route::get('/vote/{id}/edit', 'VoteController@edit');
+        Route::put('/vote/{id}/edit', 'VoteController@update');
+        Route::get('/vote/{id}/delete', 'VoteController@destroy');
+
+    });
+
+
     Route::get('/checkAuth', function (Request $request) {
         return response()->json(['id' => $request->user->id]);
     });
@@ -31,11 +57,3 @@ Route::group(['middleware' => 'apiAuth'], function () {
 
 });
 
-/*
- * Vote
- * */
-Route::get('/votes', 'VoteController@index');
-Route::get('/vote/{id}', 'VoteController@show');
-Route::get('/vote/{id}/edit', 'VoteController@edit');
-Route::put('/vote/{id}/edit', 'VoteController@update');
-Route::get('/vote/{id}/delete', 'VoteController@destroy');

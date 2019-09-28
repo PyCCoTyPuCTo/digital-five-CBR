@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersCompletedVotesTable extends Migration
+class CreateClosedQuestionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,25 @@ class CreateUsersCompletedVotesTable extends Migration
      */
     public function up()
     {
-        Schema::create('users_completeds', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('closed_questions', function (Blueprint $table) {
 
-            $table->unsignedBigInteger('id_user');
+            $table->bigIncrements('id');
+            $table->boolean('value');
+
             $table->unsignedBigInteger('id_votes');
-            $table->foreign('id_user')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
             $table->foreign('id_votes')
                 ->references('id')
                 ->on('votes')
                 ->onDelete('cascade');
-            $table->softDeletes();
+
+            $table->unsignedBigInteger('id_users');
+            $table->foreign('id_users')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+
             $table->timestamps();
+
         });
     }
 
@@ -38,6 +42,6 @@ class CreateUsersCompletedVotesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_completed');
+        Schema::dropIfExists('closed_answers');
     }
 }

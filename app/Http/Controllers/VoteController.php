@@ -21,7 +21,7 @@ class VoteController extends Controller
 //        $user = User::find($userId);
 //        $votes = DB::table('votes')
 //            ->where('id_permission', '=', $user->id_permission)->get();
-        $votes = DB::table('votes')->where('id_permission', '=', $request->user->id)->get();
+        $votes = DB::table('votes')->where('id_permission', '=', $request->user->id_permission)->get();
         return response()->json([
             'success' => 'true',
             'data' => $votes

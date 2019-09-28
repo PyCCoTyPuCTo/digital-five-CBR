@@ -12,6 +12,8 @@ class VotesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Vote::class, 10)->state('closed_question')->create();
+        factory(Vote::class, 3)->state('closed_question_subject-1')->create();
+        factory(Vote::class, 2)->state('closed_question_subject-2')->create();
+        factory(Vote::class, 4)->state('closed_question_subject-3')->create();
     }
 }

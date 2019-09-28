@@ -19,6 +19,7 @@ class CreateVotesTable extends Migration
             $table->string('title');
             $table->string('description');
             $table->date('finish_time');
+            $table->string('subject');
             $table->softDeletes();
             $table->timestamps();
             $table->foreign('id_permission')

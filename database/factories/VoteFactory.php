@@ -15,9 +15,24 @@ $factory->define(Vote::class, function (Faker $faker) {
     ];
 });
 
-$factory->state(Vote::class, 'closed_question', function (Faker $faker) {
 
+$factory->state(Vote::class, 'closed_question_subject-1', function (Faker $faker) {
     return [
-        'type' => 'closed_question'
+        'type' => 'closed_question',
+        'subject' => 'Денежно-кредитная политика'
+    ];
+});
+
+$factory->state(Vote::class, 'closed_question_subject-2', function (Faker $faker) {
+    return [
+        'type' => 'closed_question',
+        'subject' => 'Банковское кредитование'
+    ];
+});
+
+$factory->state(Vote::class, 'closed_question_subject-3', function (Faker $faker) {
+    return [
+        'type' => 'closed_question',
+        'subject' => 'Экономика'
     ];
 });

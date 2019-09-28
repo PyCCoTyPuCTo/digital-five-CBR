@@ -15,16 +15,16 @@ class VoteController extends Controller
      *
      * @return JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
 //        $userId = Auth::id();
 //        $user = User::find($userId);
 //        $votes = DB::table('votes')
 //            ->where('id_permission', '=', $user->id_permission)->get();
-        $votes = DB::table('votes')->where('id_permission', '=', 1)->get();
+        $votes = DB::table('votes')->where('id_permission', '=', $request->user->id)->get();
         return response()->json([
-           'success' => 'true',
-           'data' => $votes
+            'success' => 'true',
+            'data' => $votes
         ]);
     }
 
@@ -58,8 +58,8 @@ class VoteController extends Controller
     {
         $vote = Vote::find($id);
         return response()->json([
-           'success' => 'true',
-           'data' => $vote
+            'success' => 'true',
+            'data' => $vote
         ]);
     }
 
@@ -73,7 +73,7 @@ class VoteController extends Controller
     {
         $editVote = Vote::find($id);
         return response()->json([
-           'success' => 'true',
+            'success' => 'true',
             'data' => $editVote
         ]);
     }

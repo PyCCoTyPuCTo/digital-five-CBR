@@ -23,6 +23,7 @@ class ApiAuthController
             [
                 'name' => 'required|unique:users',
                 'email' => 'required|unique:users|email:rfc',
+                'type' => 'required|exists:permissions,id',
                 'password' => 'required'
             ]
         );
@@ -42,6 +43,7 @@ class ApiAuthController
         $user->email = $request->email;
         $user->password = md5($request->password);
         $user->remember_token = md5(time() . $request->email);
+        $user->id_permission = $request->type;
 
         $user->save();
 

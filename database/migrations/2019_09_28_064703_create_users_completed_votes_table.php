@@ -24,6 +24,7 @@ class CreateUsersCompletedVotesTable extends Migration
                 ->references('id')
                 ->on('votes')
                 ->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

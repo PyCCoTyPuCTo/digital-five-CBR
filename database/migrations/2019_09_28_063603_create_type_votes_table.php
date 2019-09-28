@@ -16,6 +16,7 @@ class CreateTypeVotesTable extends Migration
         Schema::create('type_votes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('type');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

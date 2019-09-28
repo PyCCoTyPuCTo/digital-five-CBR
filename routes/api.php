@@ -30,3 +30,12 @@ Route::group(['middleware' => 'apiAuth'], function () {
 
 
 });
+
+/*
+ * Vote
+ * */
+Route::get('/votes', 'VoteController@index');
+Route::get('/vote/{id}', 'VoteController@show');
+Route::get('/vote/{id}/edit', 'VoteController@edit');
+Route::put('/vote/{id}/edit', 'VoteController@update');
+Route::get('/vote/{id}/delete', 'VoteController@destroy');

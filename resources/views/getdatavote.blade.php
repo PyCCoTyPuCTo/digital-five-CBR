@@ -1,4 +1,5 @@
 <?php
+$pr = [1 => 'Физические лица', 2 => 'Юридические лица'];
 $type = ['closed_question' => 'Вопросы закрытого типа']
 ?>
 
@@ -74,68 +75,23 @@ $type = ['closed_question' => 'Вопросы закрытого типа']
         <div class="title m-b-md" style="margin-bottom: 40px">
             CBR
             <small>Admin</small>
-            <div class="btn-group" style="margin-left: 50px">
-                <button type="button" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false">
-                    Создать голосование
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/add_page">Голосование закрытого типа</a>
-                </div>
-            </div>
         </div>
 
-
-        <table class="table table-hover">
-            <thead class="thead-dark">
-            <tr>
-                <td>
-                    Заголовок
-                </td>
-                <td>
-                    Категория
-                </td>
-                <td>
-                    Голосов
-                </td>
-                <td>
-                    Среднее
-                </td>
-                <td>
-                    Время окончания голосования
-                </td>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach(\App\Vote::orderBy('created_at', 'DESC')->get() as $vote)
-
-                <tr @if($vote->finish_time < date('Y-m-d',time())) style="color: black;background-color: rgba(255,0,2,0.38)" @endif>
-                    <td>
-
-                        <a href="/getdatavote/{{$vote->id}}" style="text-decoration: none ">
-                            {{$vote->title}}
-                        </a>
-
-                    </td>
-                    <td>
-                        {{$type[$vote->type]}}
-                    </td>
-                    <td>
-                        {{\App\ClosedQuestion::all()->where('id_votes',$vote->id)->count()}}
-                    </td>
-                    <td>
-                        {{\App\ClosedQuestion::all()->where('id_votes',$vote->id)->avg('value')}}
-                    </td>
-                    <td>
-                        {{$vote->finish_time}}
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
-
-        </table>
-
+        <div class="card text-center">
+            <div class="card-header">
+                {{$vote->title}}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{$type[$vote->type]}}</h5>
+                <h5 class="card-title">{{$vote->subject}}</h5>
+                <h5 class="card-title">Распростронеяестя на пользователей: {{$pr[$vote->id_permission]}}</h5>
+                <p class="card-text">{{$vote->description}}</p>
+                <a href="/" class="btn btn-primary">Назад</a>
+            </div>
+            <div class="card-footer text-muted">
+                Действует до <p class="card-text">{{$vote->finish_time}}</p>
+            </div>
+        </div>
 
     </div>
 </div>
